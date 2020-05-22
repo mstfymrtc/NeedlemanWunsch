@@ -85,7 +85,9 @@ namespace NeedlemanWunsch
         public void TraceBack(List<Trace> traces)
         {
             //continue tracing until matrix[1,1]
-            while (traces.Last().RowIndex != 0 && traces.Last().ColIndex != 0)
+            while (!((traces.Last().RowIndex == 1 && traces.Last().ColIndex == 1) ||
+                     (traces.Last().RowIndex == 1 && traces.Last().ColIndex == 0) ||
+                     (traces.Last().RowIndex == 0 && traces.Last().ColIndex == 1)))
             {
                 Console.WriteLine(traces.Last().RowIndex); //last trace's row
                 Console.WriteLine(traces.Last().ColIndex); //last trace's col
@@ -220,6 +222,7 @@ namespace NeedlemanWunsch
                 }
             }
 
+            traces.Add(new Trace {RowIndex = 0, ColIndex = 0});
             BackTraces.Add(traces);
         }
 

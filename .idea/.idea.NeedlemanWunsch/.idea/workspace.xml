@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c53af6d-63ed-453e-b078-9999f130d5ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeedlemanWunsch/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeedlemanWunsch/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeedlemanWunsch/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeedlemanWunsch/Program.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +22,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/NeedlemanWunsch/Program.cs" />
         <option value="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" />
+        <option value="$PROJECT_DIR$/NeedlemanWunsch/Program.cs" />
       </list>
     </option>
   </component>
@@ -76,7 +76,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590109470497</updated>
-      <workItem from="1590109471836" duration="22935000" />
+      <workItem from="1590109471836" duration="27028000" />
     </task>
     <servers />
   </component>
@@ -108,42 +108,16 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs</url>
-          <line>275</line>
-          <properties documentPath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" initialLine="289">
+          <line>278</line>
+          <properties documentPath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" initialLine="275">
             <startOffsets>
-              <option value="10273" />
+              <option value="10512" />
             </startOffsets>
             <endOffsets>
-              <option value="10287" />
+              <option value="10526" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs</url>
-          <line>85</line>
-          <properties documentPath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" initialLine="85">
-            <startOffsets>
-              <option value="3230" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3231" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs</url>
-          <line>121</line>
-          <properties documentPath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" initialLine="121">
-            <startOffsets>
-              <option value="4853" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4905" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="11" />
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

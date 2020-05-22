@@ -6,7 +6,7 @@ namespace NeedlemanWunsch
     {
         static void Main(string[] args)
         {
-            NeedlemanWunsch aligner = new NeedlemanWunsch(10, -2, -5, "CATTCAC", "CTCGCAGC");
+            NeedlemanWunsch aligner = new NeedlemanWunsch(2, -1, -1, "ACGCTG", "CATGT");
             aligner.Run();
         }
     }
