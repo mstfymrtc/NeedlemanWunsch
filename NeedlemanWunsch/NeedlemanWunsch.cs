@@ -1,6 +1,10 @@
+/**
+ * Author:    Mustafa Yumurtacı
+ * Created:   23.05.2020
+ **/
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.IO;
 using System.Linq;
 
 namespace NeedlemanWunsch
@@ -9,13 +13,19 @@ namespace NeedlemanWunsch
     {
         private int Match { get; set; }
         private int Mismatch { get; set; }
+
         private int Gap { get; set; }
-        private string FirstSequence { get; set; } //row sequence
-        private string SecondSequence { get; set; } //col sequence
+
+        // Row sequence
+        private string FirstSequence { get; set; }
+
+        // Column sequence
+        private string SecondSequence { get; set; }
         private int[,] Matrix { get; set; }
 
-        //where int[,] is a trace, BackTraces is list of trace
+        // All possible back traces
         private List<List<Trace>> BackTraces { get; set; }
+        private List<AlignedSequencePair> AlignedSequencePairs { get; set; }
 
         /// <summary>
         /// Constructor for initializing a NeedlemanWunsch instance.
@@ -35,11 +45,12 @@ namespace NeedlemanWunsch
             SecondSequence = secondSequence;
             Matrix = new int[firstSequence.Length + 1, secondSequence.Length + 1];
             BackTraces = new List<List<Trace>>();
+            AlignedSequencePairs = new List<AlignedSequencePair>();
         }
 
         /// <summary>
         /// Constructor for initializing a NeedlemanWunsch instance.
-        /// Sets given values for alignment. Reads sequences from seqS.txt and seqT.txt files.
+        /// Sets given values for alignment. Reads row sequence from seqS.txt, and col sequence from seqT.txt file.
         /// </summary>
         /// <param name="match">Match reward</param>
         /// <param name="mismatch">Mismatch penalty</param>
@@ -49,11 +60,34 @@ namespace NeedlemanWunsch
             Match = match;
             Mismatch = mismatch;
             Gap = gap;
-//            FirstSequence = firstSequence;
-//            SecondSequence = secondSequence;
-//            Matrix = new int[firstSequence.Length + 1, secondSequence.Length + 1];
+            BackTraces = new List<List<Trace>>();
+            AlignedSequencePairs = new List<AlignedSequencePair>();
+            InitializeSequencesFromFile();
         }
 
+        /// <summary>
+        /// Read sequences first sequence from seqS.txt, second sequence from seqT.txt file and set them to instance along with Matrix.
+        /// </summary>
+        /// <exception cref="FileNotFoundException"></exception>
+        public void InitializeSequencesFromFile()
+        {
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string fullPath = appDirectory.Substring(0, appDirectory.IndexOf("/bin"));
+            if (File.Exists(fullPath + "/seqS.txt") && File.Exists(fullPath + "/seqT.txt"))
+            {
+                FirstSequence = File.ReadAllLines(fullPath + "/seqS.txt")[1];
+                SecondSequence = File.ReadAllLines(fullPath + "/seqT.txt")[1];
+                Matrix = new int[FirstSequence.Length + 1, SecondSequence.Length + 1];
+            }
+            else
+            {
+                throw new FileNotFoundException("Both seqS.txt and seqT.txt files must be exists!");
+            }
+        }
+
+        /// <summary>
+        /// Fill in solution matrix based on match, mismatch and gap values
+        /// </summary>
         public void FillMatrix()
         {
             // Fill in first row and first col with gap values
@@ -82,16 +116,17 @@ namespace NeedlemanWunsch
             }
         }
 
+        /// <summary>
+        /// Recursively trace back
+        /// </summary>
+        /// <param name="traces"></param>
         public void TraceBack(List<Trace> traces)
         {
-            //continue tracing until matrix[1,1]
+            // Continue tracing until Matrix[1,1], Matrix[1,0] or Matrix[0,1]
             while (!((traces.Last().RowIndex == 1 && traces.Last().ColIndex == 1) ||
                      (traces.Last().RowIndex == 1 && traces.Last().ColIndex == 0) ||
                      (traces.Last().RowIndex == 0 && traces.Last().ColIndex == 1)))
             {
-                Console.WriteLine(traces.Last().RowIndex); //last trace's row
-                Console.WriteLine(traces.Last().ColIndex); //last trace's col
-
                 bool isSourceTop = false;
                 bool isSourceLeft = false;
                 bool isSourceDiagonal = false;
@@ -104,7 +139,7 @@ namespace NeedlemanWunsch
                                         ? Match
                                         : Mismatch);
 
-                //set flags
+                // Set flags
                 if (topValue == Matrix[traces.Last().RowIndex, traces.Last().ColIndex])
                 {
                     isSourceTop = true;
@@ -120,10 +155,12 @@ namespace NeedlemanWunsch
                     isSourceDiagonal = true;
                 }
 
-                //handle all possibilities, there might be alternative traces
+                // Handle all possibilities, there might be alternative traces
+                // If there such trace exists, handle it as different traceback recursively.
                 if (isSourceTop && isSourceLeft && isSourceDiagonal)
                 {
                     var tempTrace = new List<Trace>(traces);
+
                     //top condition
                     tempTrace.Add(new Trace
                     {
@@ -149,13 +186,16 @@ namespace NeedlemanWunsch
                 else if (isSourceTop && isSourceLeft)
                 {
                     var tempTrace = new List<Trace>(traces);
+
                     //top condition
                     tempTrace.Add(new Trace
                     {
                         RowIndex = traces.Last().RowIndex - 1,
                         ColIndex = traces.Last().ColIndex
                     });
-                    TraceBack(tempTrace); //left condition
+                    TraceBack(tempTrace);
+
+                    //left condition
                     traces.Add(new Trace
                     {
                         RowIndex = traces.Last().RowIndex,
@@ -165,6 +205,7 @@ namespace NeedlemanWunsch
                 else if (isSourceTop && isSourceDiagonal)
                 {
                     var tempTrace = new List<Trace>(traces);
+
                     //top condition
                     tempTrace.Add(new Trace
                     {
@@ -172,6 +213,7 @@ namespace NeedlemanWunsch
                         ColIndex = traces.Last().ColIndex
                     });
                     TraceBack(tempTrace);
+
                     //diagonal condition
                     traces.Add(new Trace
                     {
@@ -182,6 +224,7 @@ namespace NeedlemanWunsch
                 else if (isSourceLeft && isSourceDiagonal)
                 {
                     var tempTrace = new List<Trace>(traces);
+
                     //left condition
                     tempTrace.Add(new Trace
                     {
@@ -189,12 +232,13 @@ namespace NeedlemanWunsch
                         ColIndex = traces.Last().ColIndex - 1
                     });
                     TraceBack(tempTrace);
+
+                    //diagonal condition
                     traces.Add(new Trace
                     {
                         RowIndex = traces.Last().RowIndex - 1,
                         ColIndex = traces.Last().ColIndex - 1
                     });
-                    //diagonal condition
                 }
                 else if (isSourceTop)
                 {
@@ -226,8 +270,54 @@ namespace NeedlemanWunsch
             BackTraces.Add(traces);
         }
 
-        public void PrintMatrix()
+
+        /// <summary>
+        /// Based on back traces, find all possible sequences.
+        /// </summary>
+        public void AlignSequences()
         {
+            for (int i = 0; i < BackTraces.Count; i++)
+            {
+                string firstAlignedSequence = "";
+                string secondAlignedSequence = "";
+                for (int j = 0; j < BackTraces[i].Count - 1; j++)
+                {
+                    if (BackTraces[i][j].RowIndex - 1 == BackTraces[i][j + 1].RowIndex &&
+                        BackTraces[i][j].ColIndex - 1 == BackTraces[i][j + 1].ColIndex)
+                    {
+                        firstAlignedSequence += FirstSequence[BackTraces[i][j].RowIndex - 1];
+                        secondAlignedSequence += SecondSequence[BackTraces[i][j].ColIndex - 1];
+                    }
+                    else if (BackTraces[i][j].RowIndex - 1 == BackTraces[i][j + 1].RowIndex &&
+                             BackTraces[i][j].ColIndex == BackTraces[i][j + 1].ColIndex)
+                    {
+                        firstAlignedSequence += FirstSequence[BackTraces[i][j].RowIndex - 1];
+                        secondAlignedSequence += "-";
+                    }
+                    else
+                    {
+                        firstAlignedSequence += "-";
+                        secondAlignedSequence += SecondSequence[BackTraces[i][j].ColIndex - 1];
+                    }
+                }
+
+                AlignedSequencePairs.Add(new AlignedSequencePair
+                {
+                    FirstAlignedSequence = firstAlignedSequence.Reverse(),
+                    SecondAlignedSequence = secondAlignedSequence.Reverse()
+                });
+            }
+        }
+
+        /// <summary>
+        /// Print sequence alignment results along with other info obtained.
+        /// </summary>
+        public void PrintResults()
+        {
+            // Print solution matrix
+
+            Console.WriteLine("Solution matrix:");
+
             for (int i = 0; i < Matrix.GetLength(0); i++)
             {
                 if (i == 0)
@@ -264,10 +354,32 @@ namespace NeedlemanWunsch
 
                 Console.WriteLine();
             }
+
+            // Print score
+            Console.WriteLine("\nObtained score: " + Matrix[Matrix.GetLength(0) - 1, Matrix.GetLength(1) - 1]);
+
+            // Print back traces info
+            Console.WriteLine("Number of backtraces: " + BackTraces.Count);
+
+            // Print all possible alignments
+            Console.WriteLine("\nAll possible alignments:");
+
+            foreach (var pair in AlignedSequencePairs)
+            {
+                Console.WriteLine("----------");
+                Console.WriteLine(pair.FirstAlignedSequence);
+                Console.WriteLine(pair.SecondAlignedSequence);
+            }
+
+            Console.WriteLine("----------");
         }
 
+        /// <summary>
+        /// Run alignment process based on sequence info.
+        /// </summary>
         public void Run()
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             FillMatrix();
             var traces = new List<Trace>();
             traces.Add(new Trace
@@ -276,8 +388,19 @@ namespace NeedlemanWunsch
                 ColIndex = Matrix.GetLength(1) - 1
             });
             TraceBack(traces);
-            PrintMatrix();
+            AlignSequences();
+            watch.Stop();
+
+            PrintResults();
+            Console.WriteLine("\nExecution time: " + watch.ElapsedMilliseconds + " milliseconds\n");
         }
+    }
+
+
+    public class AlignedSequencePair
+    {
+        public string FirstAlignedSequence { get; set; }
+        public string SecondAlignedSequence { get; set; }
     }
 
     public class Trace

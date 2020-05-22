@@ -1,4 +1,7 @@
-﻿using System;
+﻿/**
+ * Author:    Mustafa Yumurtacı
+ * Created:   23.05.2020
+ **/
 
 namespace NeedlemanWunsch
 {
@@ -6,7 +9,12 @@ namespace NeedlemanWunsch
     {
         static void Main(string[] args)
         {
-            NeedlemanWunsch aligner = new NeedlemanWunsch(2, -1, -1, "ACGCTG", "CATGT");
+            // Call from param
+            //NeedlemanWunsch aligner = new NeedlemanWunsch(10, -2, -5, "ACGCTG", "CATGT");
+            //aligner.Run();
+
+            // Call from file
+            NeedlemanWunsch aligner = new NeedlemanWunsch(5, -3, -5);
             aligner.Run();
         }
     }

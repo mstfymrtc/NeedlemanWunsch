@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c53af6d-63ed-453e-b078-9999f130d5ba" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/NeedlemanWunsch/ExtensionMethods.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeedlemanWunsch/seqS.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NeedlemanWunsch/seqT.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeedlemanWunsch/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeedlemanWunsch/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NeedlemanWunsch/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeedlemanWunsch/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeedlemanWunsch/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeedlemanWunsch/Program.cs" afterDir="false" />
@@ -17,13 +21,16 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/BFE63B34-FDD1-436A-83D9-7A46DF779495/d9/63094da8/File.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeedlemanWunsch/ExtensionMethods.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeedlemanWunsch/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" />
+        <option value="$PROJECT_DIR$/NeedlemanWunsch/ExtensionMethods.cs" />
         <option value="$PROJECT_DIR$/NeedlemanWunsch/Program.cs" />
+        <option value="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" />
       </list>
     </option>
   </component>
@@ -33,6 +40,7 @@
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
     <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -76,7 +84,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590109470497</updated>
-      <workItem from="1590109471836" duration="27028000" />
+      <workItem from="1590109471836" duration="39687000" />
     </task>
     <servers />
   </component>
@@ -106,19 +114,6 @@
           <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs</url>
-          <line>278</line>
-          <properties documentPath="$PROJECT_DIR$/NeedlemanWunsch/NeedlemanWunsch.cs" initialLine="275">
-            <startOffsets>
-              <option value="10512" />
-            </startOffsets>
-            <endOffsets>
-              <option value="10526" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
